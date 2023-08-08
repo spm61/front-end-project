@@ -15,6 +15,8 @@ It is done when the game draws the hangman on incorrect guesses and ends the gam
 It is done when, if the word is correctly entered, the game declares a winning state and then ends the game.
 It is done when, at the end of a game, the user can start a new game.
 It is done when the user enters a guess by pressing a letter key on the keyboard.
+It is done when the user is presented with a nice picture if they win.
+It is done when the user is presented with a consolation picture if they lose.
 
 # Future Developement (or, things we'd do if we had more time).
 User can specify the length of the word.
