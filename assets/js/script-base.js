@@ -1,12 +1,31 @@
 
 //define global variables used throughout application
+
+var unsplashAccessKey = "vXHZomtCWCOuPpNZLkKKA_A972YCk2cVE0WwcSb4-_s"
+var unsplashSecretKey = "4sp7ZTBI_rSj6a_uhsEL1sWwNOYEMeWoFiRNvAWQWfU"
+
+var unsplashCongratsUrl = "https://api.unsplash.com/photos/random?query=victory&client_id=" + unsplashAccessKey
+var unsplashCondolenceUrl = "https://api.unsplash.com/photos/random?query=defeat&client_id=" + unsplashAccessKey
+
+
 //var startButtonEl = $('#start-button');
 var startButtonEl = document.querySelector("#start-button");
 var pastScoresEl = $("#past-scores");
 
+
 var wrongLettersEl = $("#wrong-letters-p");
 var rightLettersEl = $("#right-letters");
 var wordLength = 5;
+
+var hangmanImageEl = $("#hangman-image");
+//var hangmanImageEl = document.getElementById("hangman-image");
+var hangmanImageName = "hangman-0";
+
+var congratsImageEl = $("#congrats-image");
+var congratsImageName = ""
+
+var condolenceImageEl = $("#condolence-image");
+var condolenceImageName = ""
 
 
 var isDone = false;
@@ -14,11 +33,13 @@ var isWin = false;
 var isLoss = false;
 
 var gblPlayerName = "Player X"
-var gblPlayerScore = 50
+var gblPlayerScore = 0;
 var gblPlayerResult = ""
+var numberOfWrongGuesses = 0;
+var fullHangManLength = 6;
 
 var timerElement = document.querySelector("#timer-span");
-var timerCount = 10;
+var timerCount = 50;
 
 
 var wrongLettersStr = ""
@@ -37,6 +58,62 @@ var randomWordUrl = "https://random-word-api.vercel.app/api?words=1&length=" + w
 var randomWord = ""
 var guessedWord = ["*", "*", "*", "*", "*"]
 
+
+function getCongratsPic() {
+  fetch(unsplashCongratsUrl)
+  .then(function (response) {
+    //console.log("randomword response: " + response)
+    if (response.status !== 200){
+      window.alert("Bad URL fetch call: " + response.status)
+      return;
+    }
+    return response.json();
+  })
+  // if successful, set the global randomWord to the retrieved value
+  .then(function (data) {
+    //console.log(data[0]);
+    if (!data || data.length == 0){
+      window.alert("Bad random word! ")
+        return;
+    } else {
+      console.log(data)
+      congratsImageName = data.urls.small
+      $(congratsImageEl).attr("src", congratsImageName);
+   
+    }
+    
+    
+  });
+
+}
+
+function getCondolencePic() {
+  fetch(unsplashCondolenceUrl)
+  .then(function (response) {
+    //console.log("randomword response: " + response)
+    if (response.status !== 200){
+      window.alert("Bad URL fetch call: " + response.status)
+      return;
+    }
+    return response.json();
+  })
+  // if successful, set the global randomWord to the retrieved value
+  .then(function (data) {
+    //console.log(data[0]);
+    if (!data || data.length == 0){
+      window.alert("Bad random word! ")
+        return;
+    } else {
+      console.log(data)
+      condolenceImageName = data.urls.small
+      $(condolenceImageEl).attr("src", condolenceImageName);
+   
+    }
+    
+    
+  });
+
+}
 
 // initialize html page, load score history from local storage
 // display scores on screen, load array of scores with score history
@@ -138,6 +215,8 @@ function winGame(){
   // BEGIN ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
   var pastScoresList = "<p>" + newScoreObj.playerName + "   " + newScoreObj.playerScore + "  " + newScoreObj.playerWord + " " + newScoreObj.playerResult + "</p>"
   pastScoresEl.append(pastScoresList);
+
+  getCongratsPic();
   // END ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
 
 
@@ -163,6 +242,8 @@ function loseGame(){
   // BEGIN ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
   var pastScoresList = "<p>" + newScoreObj.playerName + "   " + newScoreObj.playerScore + "  "  + newScoreObj.playerWord + " " +  newScoreObj.playerResult + "</p>"
   pastScoresEl.append(pastScoresList);
+
+ getCondolencePic();
   // END ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
 
 }
@@ -178,20 +259,22 @@ function startTimer() {
     timerElement.textContent = timerCount;
     if (timerCount >= 0) {
       // Tests if isdone condition is met
-      if (isDone && timerCount > 0) {
+      if (isDone && isWin && timerCount > 0) {
         // Clears interval and stops timer
           clearInterval(timer);
           winGame();
           startButtonEl.disabled = false;
+          document.removeEventListener("keydown", keydownAction);
       }
     }
     // Tests if time has run out
-    if (timerCount <= 0) {
+    if (timerCount <= 0 || isLoss) {
       // Clears interval
        clearInterval(timer);
        loseGame();
        timerCount = 0;
        startButtonEl.disabled = false;
+       document.removeEventListener("keydown", keydownAction);
       //stopQuiz();
     }
   }, 1000);
@@ -238,6 +321,7 @@ function keydownAction(event) {
   var isLetterInStringResult = isLetterInString(keyPress, randomWord);
 
   if (isLetterInStringResult){
+    gblPlayerScore = gblPlayerScore + 10;
     // if keyPress is in the random word, see how many times, and at what location in the string
     var letterPositionResult = countLetterOccurrences(keyPress, randomWord)
     // for each letter in the string, update our guessed word array, and display in proper order on the html
@@ -261,8 +345,11 @@ function keydownAction(event) {
     }
 
   } else {
+    gblPlayerScore = gblPlayerScore - 5;
     var isLetterInStringResult = arrayOfWrongLettersObj.includes(keyPress)
     if(!isLetterInStringResult){
+
+ 
 
       var newLetter = keyPress
       arrayOfWrongLettersObj.push(newLetter);
@@ -270,11 +357,24 @@ function keydownAction(event) {
       wrongLettersStr = arrayOfWrongLettersObj.join(" ")
       //wrongLettersEl.append("<p style = 'display: inline-block;'>" +  wrongLettersStr + "</p>");
 
+
       // display the wrong letters
       // BEGIN ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
       var wrongLettersEl = $("#wrong-letters-p");
       wrongLettersEl.text(wrongLettersStr);
       // END ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
+
+      numberOfWrongGuesses++;
+
+      
+      hangmanImageName = "./assets/images/" + "hangman-" +  numberOfWrongGuesses + ".png";
+      $(hangmanImageEl).attr("src", hangmanImageName);
+
+
+      if (numberOfWrongGuesses == fullHangManLength) {
+        isDone = true;
+        isLoss = true;
+      }
 
       }
 
@@ -293,6 +393,7 @@ function startButton(){
   isLoss = false;
   isWin = false; 
   isDone = false;
+  gblPlayerScore = 0;
   wrongLettersStr = "";
   arrayOfWrongLettersObj = [];
   var wrongLettersEl = $("#wrong-letters-p");
@@ -304,6 +405,13 @@ function startButton(){
     gameLettersEl.text("*");
   }
 
+// reset numberOfWrongGuesses and gallows image
+  numberOfWrongGuesses = 0
+
+  hangmanImageName = "./assets/images/" + "hangman-" +  numberOfWrongGuesses + ".png";
+  $(hangmanImageEl).attr("src", hangmanImageName);
+
+ 
  //start the timer 
 timerCount = 15;
 startTimer();
@@ -312,12 +420,12 @@ startTimer();
 beginNewGame();
 // disable to start button
  startButtonEl.disabled = true; 
+ // Adds listener for keydown event
+ document.addEventListener("keydown", keydownAction);
 }
 
 //initialize screen
 init();
-// Adds listener for keydown event
-document.addEventListener("keydown", keydownAction);
 
 //startButtonEl.on("click", startButton);
 startButtonEl.addEventListener("click", startButton);
