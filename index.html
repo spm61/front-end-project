@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <!-- CSS StyleSheet-->
+    <link rel="stylesheet" href="./assets/css/style.css">
 
     <title>Hangman Game</title>
     <style>
@@ -16,12 +19,21 @@
     </style>
 </head>
 <body>
-    <h1>Hangman Game</h1>
-    <div id="word-display">_ _ _ _ _</div>
-    <div id="guesses">Incorrect Guesses: </div>
-    <input type="text" id="letter-input" placeholder="Enter a letter">
-    <button id="guess-button">Guess</button>
+    <header>
+        <h1 class="z-depth-4 #b2ebf2 cyan lighten-4">Hangman Game</h1>
+    </header>
 
+    <section id="game">
+
+    <div id="letters-guessed">_ _ _ _ _</div>
+    <div id="high-scores">High Scores: </div>
+    <div id ="guess-form">
+    <input type="text" id="letter-input" placeholder="Enter a letter">
+    <button class="btn-large waves-effect waves-light" id="guess-button">Guess</button>
+    </div>
+
+    </section>
+    
     <script>
         // Add your JavaScript code here
     </script>
