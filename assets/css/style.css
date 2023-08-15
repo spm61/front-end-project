@@ -1,31 +1,46 @@
 header {
 text-align: center;
-height: 60px;
+height: 120px;
+background-color:#b2ebf2;
 }
 
-#high-scores {
-    width: 33.33%;
-    float: right;
+#game {
+    display: flex;
+    justify-content: space-between;
+    height: calc(100vh - 200px);
+}
+
+#high-score-box {
     text-align: center;
     border: solid;
     margin-top: 2%;
-    padding-top: 25%;
+    display: flex;
+    flex-direction: column;
+    width: 33.33%;
+}
+
+#guessed-letters-title {
+    position: relative;
+}
+
+#high-score-title {
+    position: relative;
 }
 
 #letters-guessed {
-    width: 33.33%;
-    float: left;
     text-align: center;
     border: solid;
     margin-top: 2%;
-    padding-top: 25%;
+    display: flex;
+    flex-direction: column;
+    width: 33.33%;
 }
 
 #guess-form {
     width: 33.33%;
-    margin: 0 auto;
     text-align: center;
-    padding-top: 26%;
     padding-left: 1%;
     padding-right: 1%;
+    padding-bottom: 150px;
+    margin-top: 200px;
 }
