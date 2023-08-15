@@ -16,20 +16,64 @@
     <title>Hangman Game</title>
     <style>
         /* Add your CSS styles here */
+        
     </style>
+
+        <!-- Link the DayJS library -->
+        <script
+        src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+        crossorigin="anonymous"></script>
+
+
+        <!-- jQuery UI <link> tag -->
+        <link
+        rel="stylesheet"
+        href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+      />
 </head>
 <body>
     <header>
         <h1 class="z-depth-4 #b2ebf2 cyan lighten-4">Hangman Game</h1>
+        <div class = "timer-text">
+            <div class="med-font timer-count">Game Timer: <span id= "timer-span">0</span> seconds remaining!</div> 
+        </div>
     </header>
 
     <section id="game">
 
-    <div id="letters-guessed">_ _ _ _ _</div>
+    <div id="letters-guessed">
+        <h3 id="title">
+            Random Word : <span id="random-word"></span>
+        </h3>     
+        <h4>Answer</h4>
+        <div id = "right-letters" style = "display: inline-block;">
+          <p id="letter-0" style = "display: inline-block;">*</p>
+          <p id="letter-1" style = "display: inline-block;">*</p>
+          <p id="letter-2" style = "display: inline-block;">*</p>
+          <p id="letter-3" style = "display: inline-block;">*</p>
+          <p id="letter-4" style = "display: inline-block;">*</p>
+        </div>
+    </div>
+
     <div id="high-scores">High Scores: </div>
     <div id ="guess-form">
-    <input type="text" id="letter-input" placeholder="Enter a letter">
-    <button class="btn-large waves-effect waves-light" id="guess-button">Guess</button>
+        <img id = "hangman-image" src="./assets/images/hangman-0.png" style = "display: inline-block">
+        <input type="text" id="letter-input" placeholder="Enter a letter">
+        <button class="btn-large waves-effect waves-light" id="start-button">Guess</button>
+    </div>
+
+
+    <!-- A modal dialog containing a form -->
+    <div>
+    <dialog id="gameResultsDialog">
+        <form id="gameResultsForm">
+        <p id= "gameResultsHeader" class = "large-font">Game Result:</p>
+            <img id = "gameResults-image" src="">
+            <br>
+            <button class="center-align" type="button" id="closeGameResultsDialogBtn">Close</button>
+        </form>
+    </dialog>
     </div>
 
     </section>
@@ -37,5 +81,9 @@
     <script>
         // Add your JavaScript code here
     </script>
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <!-- jQuery UI <script> tag -->
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      <script src="./assets/js/script.js"></script>
 </body>
 </html>

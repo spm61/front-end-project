@@ -28,6 +28,20 @@ var condolenceImageEl = $("#condolence-image");
 var condolenceImageName = ""
 
 
+// Get the dialog element
+//var gameResultsDialog = $("#gameResultsDialog");
+var gameResultsDialog= document.getElementById("gameResultsDialog");
+var closeDialogBtn = document.getElementById("closegameResultsDialogBtn");
+var gameResultsHeader = document.getElementById("gameResultsHeader");
+var resultsImageName = "";
+var resultsMessage = "";
+
+var gameResultsForm = document.getElementById("gameResultsForm");
+
+var gameResultsImageEl = document.getElementById("gameResults-image");
+var gameResultsImageName = ""
+
+
 var isDone = false;
 var isWin = false;
 var isLoss = false;
@@ -77,8 +91,10 @@ function getCongratsPic() {
         return;
     } else {
       console.log(data)
-      congratsImageName = data.urls.small
-      $(congratsImageEl).attr("src", congratsImageName);
+      resultsImageName = data.urls.small
+      resultsMessage = "Congratulations!!  Winner!! " + gblPlayerScore
+      openGameResultsDialog();
+      //$(congratsImageEl).attr("src", congratsImageName);
    
     }
     
@@ -105,8 +121,14 @@ function getCondolencePic() {
         return;
     } else {
       console.log(data)
-      condolenceImageName = data.urls.small
-      $(condolenceImageEl).attr("src", condolenceImageName);
+
+      console.log(data)
+      resultsImageName = data.urls.small
+      resultsMessage = "Sorry  you lost!! " + gblPlayerScore
+      openGameResultsDialog();
+
+      //condolenceImageName = data.urls.small
+      //$(condolenceImageEl).attr("src", condolenceImageName);
    
     }
     
@@ -216,12 +238,15 @@ function winGame(){
   var pastScoresList = "<p>" + newScoreObj.playerName + "   " + newScoreObj.playerScore + "  " + newScoreObj.playerWord + " " + newScoreObj.playerResult + "</p>"
   pastScoresEl.append(pastScoresList);
 
-  getCongratsPic();
+
   // END ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
 
 
 
   // ADD CODE to retrieve prize
+  getCongratsPic();
+
+
 
 }
 // if 
@@ -248,6 +273,34 @@ function loseGame(){
 
 }
 
+
+// code for score saving dialog processing
+
+
+// Function to open the dialog
+function openGameResultsDialog(){
+  gameResultsHeader.textContent = resultsMessage;
+  gameResultsImageEl.src = resultsImageName;
+  gameResultsDialog.showModal();
+  //$(gameResultsImageEl).attr("src", resultsImageName);
+}
+
+
+// Function to close the dialog
+function closeResultsDialog() {
+  
+  //myForm.reset();
+  gameResultsForm.reset();
+  gameResultsHeader.textContent = "";
+  gameResultsImageEl.src = "";
+  gameResultsDialog.close();
+
+}
+
+         
+        
+        
+// end code for dialog processing
 
 
 
@@ -429,6 +482,7 @@ init();
 
 //startButtonEl.on("click", startButton);
 startButtonEl.addEventListener("click", startButton);
+closeDialogBtn.addEventListener("click", closeResultsDialog);
 
 
 
