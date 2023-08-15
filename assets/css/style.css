@@ -2,12 +2,14 @@ header {
 text-align: center;
 height: 120px;
 background-color:#b2ebf2;
+font-family: "Audiowide", sans-serif;
 }
 
 #game {
     display: flex;
     justify-content: space-between;
     height: calc(100vh - 200px);
+    font-family: "Audiowide", sans-serif;
 }
 
 #high-score-box {
@@ -43,4 +45,12 @@ background-color:#b2ebf2;
     padding-right: 1%;
     padding-bottom: 150px;
     margin-top: 200px;
+}
+
+#random-word {
+    display: none;
+}
+
+#start-button {
+    font-family: "Audiowide", sans-serif;
 }

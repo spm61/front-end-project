@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <!-- CSS StyleSheet-->
     <link rel="stylesheet" href="./assets/css/style.css">
 
@@ -41,9 +41,8 @@
 
         <div id="letters-guessed">
             <h3 id="guessed-letters-title">
-                Random Word : <span id="random-word"></span>
+                Wrong Letters<span id="random-word"></span>
             </h3>
-            <h4>Wrong Letters</h4>
             <div id="wrong-letters" style="display: inline-block;">
                 <p id="wrong-letters-p"></p>
 
@@ -62,10 +61,11 @@
         <div id="guess-form">
             <img id="hangman-image" src="./assets/images/hangman-0.png" style="display: inline-block">
             <input type="text" id="letter-input" placeholder="Enter a letter">
-            <button class="btn-large waves-effect waves-light" id="start-button">Guess</button>
+            <button class="btn-large cyan lighten-4 waves-effect waves-light black-text text-darken" id="start-button">Guess</button>
         </div>
 
-        <div id="high-score-box">High Scores: </div>
+        <div id="high-score-box">
+            <h3 id="high-score-title"> High Scores</h3>
 
 
         <!-- A modal dialog containing a form -->
