@@ -51,6 +51,7 @@
   <main class="">
 
     <body>
+      <br>
       <div class="key-container">
         <div id="key-events">
           <h3 id="title">
@@ -78,16 +79,26 @@
               </div>
             </div>
             <div>
-              <button id = "start-button">Start New Game</button>
+                 <button id = "start-button">Start New Game</button>
+                </div>
+                <br>
+                        <div id="past-scores">
+                          <h4>Past Scores</h4>
+                        </div>
+                </div>
             </div>
-            <br>
-            <div id="past-scores">
-              <h4>Past Scores</h4>
-            </div>
-            </div>
-          </div>
 
-
+                          <!-- A modal dialog containing a form -->
+              <div>
+                <dialog id="gameResultsDialog">
+                  <form id="gameResultsForm">
+                    <p id= "gameResultsHeader" class = "large-font">Game Result:</p>
+                      <img id = "gameResults-image" src="">
+                      <br>
+                      <button class="center-align" type="button" id="closegameResultsDialogBtn">Close</button>
+                  </form>
+                </dialog>
+              </div>
         </div>
       </div>
 
