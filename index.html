@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
+
     <!-- CSS StyleSheet-->
     <link rel="stylesheet" href="./assets/css/style.css">
 
@@ -22,20 +22,33 @@
 
 <body>
     <header>
-        <h1 class="z-depth-4 #b2ebf2 cyan lighten-4">Hangman Game</h1>
+        <h1>Hangman Game</h1>
+        <div class="timer-text">
+            <div class="med-font timer-count">Game Timer: <span id="timer-span">0</span> seconds remaining!</div>
+        </div>
+        </div>
     </header>
 
     <section id="game">
 
-    <div id="letters-guessed">_ _ _ _ _</div>
-    <div id="high-scores">High Scores: </div>
-    <div id ="guess-form">
-    <input type="text" id="letter-input" placeholder="Enter a letter">
-    <button class="btn-large waves-effect waves-light" id="guess-button">Guess</button>
-    </div>
+        <div id="letters-guessed">
+            <div id="guessed-letters-title">Guessed Letters</div>
+            _ _ _ _ _
+        </div>
+        <div id="guess-form">
+            <div class="hangman-images">
+            <img id="img-0" src="./assets/images/hangman-0.png">
+            <input type="text" id="letter-input" placeholder="Enter a letter">
+            <button class="btn-large waves-effect waves-light" id="guess-button">Guess</button>
+            </div>
+        </div>
+        <div id="high-score-box">
+            <div id="high-score-title">High Score</div>
+            <div id="high-score-list">---</div>
+        </div>
 
     </section>
-    
+
     <script>
         // Add your JavaScript code here
     </script>
