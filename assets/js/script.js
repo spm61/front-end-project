@@ -9,7 +9,7 @@ var unsplashCondolenceUrl = "https://api.unsplash.com/photos/random?query=defeat
 
 //var startButtonEl = $('#start-button');
 var startButtonEl = document.querySelector("#start-button");
-var pastScoresEl = $("#high-scores");
+var pastScoresEl = $("#high-score-box");
 
 
 var wrongLettersEl = $("#wrong-letters-p");
@@ -34,6 +34,13 @@ var closeDialogBtn = document.getElementById("closeGameResultsDialogBtn");
 var gameResultsHeader = document.getElementById("gameResultsHeader");
 var resultsImageName = "";
 var resultsMessage = "";
+
+var errorMessageDialog= document.getElementById("errorMessageDialog");
+var errorMessageForm= document.getElementById("errorMessageForm");
+var errorMessageDialogBtn = document.getElementById("errorMessageDialogBtn");
+var errorMessage = document.getElementById("errorMessage");
+
+var userName = document.getElementById("userName");
 
 var gameResultsForm = document.getElementById("gameResultsForm");
 
@@ -77,7 +84,8 @@ function getCongratsPic() {
   .then(function (response) {
     //console.log("randomword response: " + response)
     if (response.status !== 200){
-      window.alert("Bad URL fetch call: " + response.status)
+      errorMessage.textContent = "Bad URL fetch call: " + response.status;
+      openErrorMessageDialog();
       return;
     }
     return response.json();
@@ -86,7 +94,8 @@ function getCongratsPic() {
   .then(function (data) {
     //console.log(data[0]);
     if (!data || data.length == 0){
-      window.alert("Bad random word! ")
+      errorMessage.textContent = "Bad random word!";
+      openErrorMessageDialog();
         return;
     } else {
       console.log(data)
@@ -107,7 +116,8 @@ function getCondolencePic() {
   .then(function (response) {
     //console.log("randomword response: " + response)
     if (response.status !== 200){
-      window.alert("Bad URL fetch call: " + response.status)
+      errorMessage.textContent = "Bad URL fetch call: " + response.status;
+      openErrorMessageDialog();
       return;
     }
     return response.json();
@@ -116,7 +126,8 @@ function getCondolencePic() {
   .then(function (data) {
     //console.log(data[0]);
     if (!data || data.length == 0){
-      window.alert("Bad random word! ")
+      errorMessage.textContent = "Bad random word!";
+      openErrorMessageDialog();
         return;
     } else {
       console.log(data)
@@ -193,8 +204,9 @@ function beginNewGame(){
   .then(function (response) {
     //console.log("randomword response: " + response)
     if (response.status !== 200){
-      window.alert("Bad URL fetch call: " + response.status)
-      return;
+      errorMessage.textContent = "Bad URL fetch call: " + response.status;
+      openErrorMessageDialog();
+      return; 
     }
     return response.json();
   })
@@ -202,7 +214,8 @@ function beginNewGame(){
   .then(function (data) {
     //console.log(data[0]);
     if (!data || data.length == 0){
-      window.alert("Bad random word! ")
+      errorMessage.textContent = "Bad random word!";
+      openErrorMessageDialog();
         return;
     } else {
       randomWord = data[0].toUpperCase();
@@ -222,50 +235,14 @@ function winGame(){
 
   gblPlayerResult = "Winner!";
 
-  var newScoreObj = {
-    playerName: gblPlayerName,
-    playerScore: gblPlayerScore,
-    playerWord: randomWord,
-    playerResult: gblPlayerResult
-  }
-
-  arrayOfScoresObj.push(newScoreObj);
-  localStorage.setItem("arrayOfScores", JSON.stringify(arrayOfScoresObj));
-
-
-  // BEGIN ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
-  var pastScoresList = "<p>" + newScoreObj.playerName + "   " + newScoreObj.playerScore + "  " + newScoreObj.playerWord + " " + newScoreObj.playerResult + "</p>"
-  pastScoresEl.append(pastScoresList);
-
-
-  // END ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
-
-
-
   // ADD CODE to retrieve prize
   getCongratsPic();
-
-
 
 }
 // if 
 function loseGame(){
 
   gblPlayerResult = "Loser!";
-
-  var newScoreObj = {
-    playerName: gblPlayerName,
-    playerScore: gblPlayerScore,
-    playerWord: randomWord,
-    playerResult: gblPlayerResult
-  }
-
-  arrayOfScoresObj.push(newScoreObj);
-  localStorage.setItem("arrayOfScores", JSON.stringify(arrayOfScoresObj));
-
-  // BEGIN ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
-  var pastScoresList = "<p>" + newScoreObj.playerName + "   " + newScoreObj.playerScore + "  "  + newScoreObj.playerWord + " " +  newScoreObj.playerResult + "</p>"
-  pastScoresEl.append(pastScoresList);
 
  getCondolencePic();
   // END ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
@@ -287,6 +264,38 @@ function openGameResultsDialog(){
 
 // Function to close the dialog
 function closeResultsDialog() {
+
+
+    //console.log("user initials " + userinitials.value)
+
+  if (userName.value.length > 0)
+  {
+     gblPlayerName = userName.value;
+     var newScoreObj = {
+      playerName: gblPlayerName,
+      playerScore: gblPlayerScore,
+      playerWord: randomWord,
+      playerResult: gblPlayerResult
+    }
+  
+    arrayOfScoresObj.push(newScoreObj);
+    localStorage.setItem("arrayOfScores", JSON.stringify(arrayOfScoresObj));
+  
+  
+    // BEGIN ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
+    var pastScoresList = "<p>" + newScoreObj.playerName + "   " + newScoreObj.playerScore + "  " + newScoreObj.playerWord + " " + newScoreObj.playerResult + "</p>"
+    pastScoresEl.append(pastScoresList);
+  
+  
+    // END ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
+  
+  
+  } else {
+          errorMessage.textContent = "Please enter user name!!";
+          openErrorMessageDialog();
+          return; 
+          }
+          
   
   //myForm.reset();
   gameResultsForm.reset();
@@ -296,8 +305,21 @@ function closeResultsDialog() {
 
 }
 
-         
-        
+// Function to open the dialog
+function openErrorMessageDialog(){
+  //errorMessage.textContent = currentErrorMessage;
+  
+  errorMessageDialog.showModal();
+  //$(gameResultsImageEl).attr("src", resultsImageName);
+}
+
+function closeErrorMessageDialog() {
+errorMessageForm.reset();
+
+errorMessageDialog.close();
+
+}
+      
         
 // end code for dialog processing
 
@@ -482,4 +504,5 @@ init();
 //startButtonEl.on("click", startButton);
 startButtonEl.addEventListener("click", startButton);
 closeDialogBtn.addEventListener("click", closeResultsDialog);
+errorMessageDialogBtn.addEventListener("click", closeErrorMessageDialog);
 
