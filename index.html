@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
+
     <!-- CSS StyleSheet-->
     <link rel="stylesheet" href="./assets/css/style.css">
 
@@ -32,16 +33,25 @@
         href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
       />
 </head>
+
 <body>
     <header>
+ updated-for-modals-mcgreevy
         <h1 class="z-depth-4 #b2ebf2 cyan lighten-4">Hangman Game</h1>
         <div class = "timer-text">
             <div class="med-font timer-count">Game Timer: <span id= "timer-span">0</span> seconds remaining!</div> 
+
+        <h1>Hangman Game</h1>
+        <div class="timer-text">
+            <div class="med-font timer-count">Game Timer: <span id="timer-span">0</span> seconds remaining!</div>
+        </div>
+ main
         </div>
     </header>
 
     <section id="game">
 
+ updated-for-modals-mcgreevy
     <div id="letters-guessed">
         <h3 id="title">
             Random Word : <span id="random-word"></span>
@@ -76,8 +86,25 @@
     </dialog>
     </div>
 
+        <div id="letters-guessed">
+            <div id="guessed-letters-title">Guessed Letters</div>
+            _ _ _ _ _
+        </div>
+        <div id="guess-form">
+            <div class="hangman-images">
+            <img id="img-0" src="./assets/images/hangman-0.png">
+            <input type="text" id="letter-input" placeholder="Enter a letter">
+            <button class="btn-large waves-effect waves-light" id="guess-button">Guess</button>
+            </div>
+        </div>
+        <div id="high-score-box">
+            <div id="high-score-title">High Score</div>
+            <div id="high-score-list">---</div>
+        </div>
+ main
+
     </section>
-    
+
     <script>
         // Add your JavaScript code here
     </script>
@@ -86,4 +113,24 @@
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
       <script src="./assets/js/script.js"></script>
 </body>
+<style>
+    .page-footer {
+        background: white;
+    }
+
+    .footer-copyright>div {
+        color: black;
+    }
+</style>
+<footer class="page-footer">
+    <div class="container">
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2023 Copyright <i class="fa-brands fa-github"></i>
+            <a class="darkblue-text text-lighten-4 right" href="https://github.com/spm61/hangman-js-game">Github</a>
+        </div>
+    </div>
+</footer>
+
 </html>
