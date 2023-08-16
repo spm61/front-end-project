@@ -30,6 +30,7 @@ var condolenceImageName = ""
 // Get the dialog element
 //var gameResultsDialog = $("#gameResultsDialog");
 var gameResultsDialog= document.getElementById("gameResultsDialog");
+var gameResultsForm= document.getElementById("gameResultsForm");
 var closeDialogBtn = document.getElementById("closeGameResultsDialogBtn");
 var gameResultsHeader = document.getElementById("gameResultsHeader");
 var resultsImageName = "";
@@ -305,6 +306,61 @@ function closeResultsDialog() {
 
 }
 
+function closeResultsForm(event) {
+
+
+  //console.log("user initials " + userinitials.value)
+
+   //  if (event.target === button && event.keyCode === 13) {
+      // Close the dialog
+  //    dialog.close();
+  //  } 
+
+    if (event.keyCode != 13) {
+      // Close the dialog
+     // dialog.close();
+      return;
+    } 
+  
+
+if (userName.value.length > 0)
+{
+   gblPlayerName = userName.value;
+   var newScoreObj = {
+    playerName: gblPlayerName,
+    playerScore: gblPlayerScore,
+    playerWord: randomWord,
+    playerResult: gblPlayerResult
+  }
+
+  arrayOfScoresObj.push(newScoreObj);
+  localStorage.setItem("arrayOfScores", JSON.stringify(arrayOfScoresObj));
+
+
+  // BEGIN ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
+  var pastScoresList = "<p>" + newScoreObj.playerName + "   " + newScoreObj.playerScore + "  " + newScoreObj.playerWord + " " + newScoreObj.playerResult + "</p>"
+  pastScoresEl.append(pastScoresList);
+
+
+  // END ---  THIS IS AN EXAMPLE OF THE JAVASCRIPT PORTION WE NEED TO UPDATE TO RETRO-FIT WITH FINAL HTML
+
+
+} else {
+        errorMessage.textContent = "Please enter user name!!";
+        openErrorMessageDialog();
+        return; 
+        }
+        
+
+//myForm.reset();
+gameResultsForm.reset();
+gameResultsHeader.textContent = "";
+gameResultsImageEl.src = "";
+gameResultsDialog.close();
+
+}
+
+
 // Function to open the dialog
 function openErrorMessageDialog(){
   //errorMessage.textContent = currentErrorMessage;
@@ -504,5 +560,12 @@ init();
 //startButtonEl.on("click", startButton);
 startButtonEl.addEventListener("click", startButton);
 closeDialogBtn.addEventListener("click", closeResultsDialog);
+//gameResultsForm.addEventListener("keydown", closeResultsForm(event));
+gameResultsForm.addEventListener("keydown", function(event) {
+  closeResultsForm(event);
+});
+
+
+
 errorMessageDialogBtn.addEventListener("click", closeErrorMessageDialog);
 
