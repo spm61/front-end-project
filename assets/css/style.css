@@ -1,8 +1,8 @@
 header {
-text-align: center;
-height: 120px;
-background-color:#b2ebf2;
-font-family: "Audiowide", sans-serif;
+    text-align: center;
+    height: 120px;
+    background-color: #b2ebf2;
+    font-family: "Audiowide", sans-serif;
 }
 
 #game {
@@ -53,4 +53,13 @@ font-family: "Audiowide", sans-serif;
 
 #start-button {
     font-family: "Audiowide", sans-serif;
+}
+
+#right-letters {
+    font-size: 50px;
+}
+
+#wrong-letters {
+    font-size: 50px;
+    color: red;
 }
