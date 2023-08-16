@@ -353,7 +353,7 @@ if (userName.value.length > 0)
         
 
 //myForm.reset();
-gameResultsForm.reset();
+//gameResultsForm.reset();
 gameResultsHeader.textContent = "";
 gameResultsImageEl.src = "";
 gameResultsDialog.close();
