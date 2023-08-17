@@ -18,6 +18,9 @@ It is done when the user enters a guess by pressing a letter key on the keyboard
 It is done when the user is presented with a nice picture if they win.
 It is done when the user is presented with a consolation picture if they lose.
 
+# Usage
+Go to spm61.github.io/hangman-js-game and click the button to start a game.
+
 # Future Developement (or, things we'd do if we had more time).
 User can specify the length of the word.
 The word's definition can be displayed to give the user a hint.
