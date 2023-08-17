@@ -60,7 +60,7 @@ var numberOfWrongGuesses = 0;
 var fullHangManLength = 6;
 
 var timerElement = document.querySelector("#timer-span");
-var timerCount = 50;
+var timerCount = 1200;
 
 
 var wrongLettersStr = ""
@@ -543,7 +543,7 @@ function startButton(){
 
  
  //start the timer 
-timerCount = 30;
+timerCount = 120;
 startTimer();
 
 //Begin a new hang-man game
