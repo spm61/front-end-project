@@ -543,7 +543,7 @@ function startButton(){
 
  
  //start the timer 
-timerCount = 30;
+timerCount = 120;
 startTimer();
 
 //Begin a new hang-man game
